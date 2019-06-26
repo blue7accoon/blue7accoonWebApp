@@ -85,20 +85,20 @@ def get_video_name(video_dir):
 
 def video_update(video_dirs=()):
     db = get_db()
-    for dir in video_dirs:
-        video_list = get_video_name(dir)
-        subdir = os.listdir(dir)
+    for video_dir in video_dirs:
+        video_list = get_video_name(video_dir)
+        subdir = os.listdir(video_dir)
         videos = list(zip(video_list,subdir))
 
         for video in videos:
             if db.execute(
                 "SELECT * FROM video_info WHERE video_dir = ?",(video[1],)
             ).fetchone() is None:
-                video_type = re.search(r".*video\\(.*?)\\",dir).group(1)
+                video_type = re.search(r".*video\\(.*?)\\",video_dir).group(1)
 
                 db.execute(
                     "INSERT INTO video_info (video_name,video_dir,video_type)"
-                    " VALUES (?,?,?)",(video[0],video[1])
+                    " VALUES (?,?,?)",(video[0],video[1],video_type)
                 )
                 db.commit()
 
