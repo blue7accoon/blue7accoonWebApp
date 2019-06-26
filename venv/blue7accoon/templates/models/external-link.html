@@ -1,0 +1,206 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>blue7accoon-links</title>
+
+    <link rel="stylesheet" href="{{url_for('static',filename='bootstrap/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='bootstrap/css/bootstrap-theme.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='main.css')}}">
+    
+    <link rel="icon" type="image/png" href="{{url_for('static',filename='image/B.png')}}" sizes="32x32">
+
+    <script src="{{url_for('static',filename='jquery-3.3.1.min.js')}}"></script>
+    <script src="{{url_for('static',filename='bootstrap/js/bootstrap.min.js')}}"></script>
+
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row bg-head">
+            <div class="col-md-3 text-center title col-sm-6">
+                <h1>blue7accoon-links</h1>
+            </div>
+            <div class="col-md-4 col-sm-3" id="vp-search-margin">
+                <form  method="GET" action="{{url_for('models.search')}}">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="keyword" placeholder="查找更多精彩视频...">
+                        <span class="input-group-btn">
+                            <button class="btn" type="submit" style="width:70px;">Go!</button>
+                        </span>
+                    </div><!-- /input-group -->
+                </form>
+            </div><!-- /.col-lg-6 -->
+            <div class="col-md-1 col-sm-1" style="margin-top:35px;margin-left: 78px;">
+                {% if g.user %}
+                    <div class="btn-group">
+                        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span><img src="../../static/icon/{{ g.user['icon']}}" class="img-rounded" width="18px" height="18px"></span>
+                            <strong>{{g.user["username"][0:2]}}...</strong>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{url_for('auth.userSpace')}}">个人空间</a></li>
+                            <li><a href="{{url_for('auth.profile')}}">修改资料</a></li>
+                            <li><a href="{{url_for('auth.logout')}}">退出</a></li>
+                        </ul>
+                    </div>
+                {% else %}
+                    <div class="btn-group">
+                        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                            <strong>用户</strong>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{url_for('auth.login')}}">登录</a></li>
+                            <li><a href="{{url_for('auth.register')}}">现在注册</a></li>
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="col-md-1 col-sm-1 col-md-pull-1" style="margin-top: 35px;margin-left: 100px">
+                <button type="button" class="btn" aria-label="Left Align">
+                    <a href="{{url_for('models.discover')}}" style="text-decoration: none;color: #000;">
+                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                    <strong>Explore</strong>
+                    </a>
+                </button>  
+            </div>
+        </div>
+            
+        <div class="row">
+            <div class="col-md-2 col-sm-2">
+                <nav class="navbar">
+                    <div class="container-fluid">
+                        <ul class="nav nav-pills nav-stacked">
+                            <li><a href="{{url_for('models.index')}}">首页</a></li>
+                            <li><a href="{{url_for('models.discover')}}">发现</a></li>
+                            <li><a href="{{url_for('models.billboard')}}">排行榜</a></li>
+                            <li><a href="{{url_for('models.edm')}}">EDM</a></li>
+                            <li><a href="{{url_for('models.trailer')}}">预告片</a></li>
+                            <li><a href="{{url_for('models.external_link')}}">外站链接</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+
+
+            
+            <div class="col-md-6 col-sm-9" id="bg-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12 text-left col-sm-12 recommend" style="margin-top:30px;">
+                            <strong>网站推荐</strong>
+                        </div>  
+                    </div>
+                    <div class="row">
+                        <hr />
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2 col-md-offset-1">
+                            <img src="../../static/image/BB_favicon144.png" alt="Billboard" width="30px" height="30px">
+                        </div>
+                        <div class="col-md-2 col-md-pull-1">
+                            <a href="https://www.billboard.com/" style="text-decoration:none;font-size:24px;">
+                                <p>billboard</p>
+                            </a>
+                        </div>
+                        <div class="col-md-7" style="margin-top:8px;margin-left:-10px;">
+                            <p>音乐榜单类网站，涵盖各种音乐风格，榜单类型多，有单曲榜、专辑榜、电音榜、hip-hop榜等</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <hr />
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2 col-md-offset-1">
+                            <img src="../../static/image/apple-touch-icon.png" alt="unsplash" width="30px" height="30px">
+                        </div>
+                        <div class="col-md-2 col-md-pull-1">
+                            <a href="https://unsplash.com/" style="text-decoration:none;font-size:24px;">
+                                <p>unsplash</p>
+                            </a>
+                        </div>
+                        <div class="col-md-7" style="margin-top:8px;margin-left:-10px;">
+                            <p>高清免费图片分享及获取社区</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <hr />
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2 col-md-offset-1">
+                            <img src="../../static/image/favicon.gif" alt="Color Hunt" width="30px" height="30px">
+                        </div>
+                        <div class="col-md-3 col-md-pull-1">
+                            <a href="https://colorhunt.co/" style="text-decoration:none;font-size:24px;">
+                                <p>color hunt</p>
+                            </a>
+                        </div>
+                        <div class="col-md-6" style="margin-top:8px;margin-left:-62px;">
+                            <p>专注色彩搭配的网站，样式多</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <hr />
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2 col-md-offset-1">
+                            <img src="../../static/image/TB1_oz6GVXXXXaFXpXXJDFnIXXX-64-64.ico" alt="iconfont" width="30px" height="30px">
+                        </div>
+                        <div class="col-md-2 col-md-pull-1">
+                            <a href="https://www.iconfont.cn/home/index?spm=a313x.7781069.1998910419.2" style="text-decoration:none;font-size:24px;">
+                                <p>iconfont</p>
+                            </a>
+                        </div>
+                        <div class="col-md-7" style="margin-top:8px;margin-left:-10px;">
+                            <p>免费的矢量图形获取渠道</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <hr />
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2 col-md-offset-1">
+                            <img src="../../static/image/touch-icon-iphone-retina.png" alt="花瓣" width="30px" height="30px">
+                        </div>
+                        <div class="col-md-2 col-md-pull-1">
+                            <a href="https://www.billboard.com/" style="text-decoration:none;font-size:24px;">
+                                <p>花瓣</p>
+                            </a>
+                        </div>
+                        <div class="col-md-7" style="margin-top:8px;margin-left:-10px;">
+                            <p>国内的瀑布流式图片分享及采集网站</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <hr />
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2 col-md-offset-1">
+                            <img src="../../static/image/bootstrp-icon-precomposed.png" alt="Bootstrap" width="30px" height="30px">
+                        </div>
+                        <div class="col-md-2 col-md-pull-1">
+                            <a href="http://www.bootcss.com/" style="text-decoration:none;font-size:24px;">
+                                <p>bootstrap</p>
+                            </a>
+                        </div>
+                        <div class="col-md-7" style="margin-top:8px;margin-left:-10px;">
+                            <p>学习bootstrap的好去处</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <hr />
+                    </div>
+                    
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

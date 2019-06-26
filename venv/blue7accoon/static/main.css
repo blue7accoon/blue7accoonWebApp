@@ -1,0 +1,102 @@
+.bg-head{
+    background-color: rgb(33, 54, 65)
+}
+.title{
+    color: #ffffff;
+    margin: 10px;
+    font-family: fantasy;
+}
+.center-block {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+#search-margin{
+    margin-bottom: 25px;
+}
+.navbar .container-fluid ul li{
+margin-bottom: 15px;
+margin-top: 15px
+}
+.navbar .container-fluid ul li a{
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.navbar .container-fluid ul{
+    margin-top: 38px
+}
+#bg-body{
+    background-color: whitesmoke;
+    margin-top: 60px;
+    margin-left: 0px;
+    margin-right: 10px
+}
+.container-fluid .row .col-sm-6.col-md-3 a img{
+    margin-left: 12px;
+    margin-right: 12px;
+    margin-top: 12px;
+    margin-bottom: 8px;
+} 
+.container-fluid .row .col-sm-6.col-md-3 a img:hover{
+    background-color: grey;
+    border: 1px #ffffff;
+    border-style: solid
+} 
+.container-fluid .row .col-sm-6.col-md-3 a p{
+    color: #010101;
+    margin-left: 16px;
+} 
+.container-fluid .row .col-sm-6.col-md-3 a{
+    text-decoration: none;
+} 
+.container-fluid .row .col-sm-6.col-md-3 a p{
+    width: 160px;
+    display:inline-block;
+    overflow: hidden; 
+    white-space: normal; 
+    text-overflow: ellipsis;
+} 
+.container-fluid .row .col-sm-6.col-md-3 a p:hover{
+    color: #00a8b5;
+} 
+.recommend{
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 15px;
+    margin-left: 2px;
+    margin-top: 6px
+}
+
+
+
+#vp-search-margin{
+    margin-top: 35px;
+    margin-left: 30px;
+}
+
+
+#video-player{
+    margin-left: 220px;
+    margin-top: 45px;
+    background-color: whitesmoke;
+    width: 1080px;
+    height: auto;
+}
+.container-fluid .nav.nav-pills li{
+    margin-top: 20px;
+}
+#comment-area{
+    width:723px;
+    height:auto;
+    background-color: whitesmoke;
+    margin-left: 232px;
+    margin-top: 10px;
+}
+.row .col-md-5 strong b a{
+    text-decoration: none;
+}
+#username-overflow{
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    width: 3px;
+}

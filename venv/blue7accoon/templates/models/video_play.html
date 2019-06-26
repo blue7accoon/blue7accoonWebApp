@@ -1,0 +1,197 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>blue7accoon-视频播放页</title>
+
+    <link rel="stylesheet" href="{{url_for('static',filename='bootstrap/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='bootstrap/css/bootstrap-theme.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='main.css')}}">
+    
+    <link rel="icon" type="image/png" href="{{url_for('static',filename='image/B.png')}}" sizes="32x32">
+
+    <script src="{{url_for('static',filename='jquery-3.3.1.min.js')}}"></script>
+    <script src="{{url_for('static',filename='bootstrap/js/bootstrap.min.js')}}"></script>
+
+    <link rel="stylesheet" href="{{url_for('static',filename='video-js-7.5.0/video-js.css')}}">
+   
+    
+</head>
+
+<body>
+        <div class="container-fluid">
+            <div class="row bg-head">
+                <div class="col-md-3 text-center title col-sm-6">
+                    <h1>blue7accoon</h1>
+                </div>
+                <div class="col-md-4 col-sm-3 col-md-pull-1" id="vp-search-margin">
+                    <form  method="GET" action="{{url_for('models.search')}}">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="keyword" placeholder="查找更多精彩视频...">
+                            <span class="input-group-btn">
+                                <button class="btn" type="submit" style="width:70px;">Go!</button>
+                            </span>
+                        </div><!-- /input-group -->
+                    </form>
+                </div><!-- /.col-lg-6 -->
+                <div class="col-md-2 col-sm-1" style="margin-top:35px;">
+                    {% if g.user %}
+                        <div class="btn-group">
+                            <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span><img src="../../static/icon/{{ g.user['icon']}}" class="img-rounded" width="18px" height="18px"></span>
+                                <strong>{{g.user["username"][0:2]}}...</strong>
+                                <span class="caret"></span> 
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{url_for('auth.userSpace')}}">个人空间</a></li>
+                                <li><a href="{{url_for('auth.profile')}}">修改资料</a></li>
+                                <li><a href="{{url_for('auth.logout')}}">退出</a></li>
+                            </ul>
+                        </div>
+                    {% else %}
+                        <div class="btn-group">
+                            <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                                <strong>用户</strong>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{url_for('auth.login')}}">登录</a></li>
+                                <li><a href="{{url_for('auth.register')}}">现在注册</a></li>
+                            </ul>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="col-md-2 col-sm-1 col-md-pull-1" style="margin-top: 35px;margin-right: 0px">
+                    <button type="button" class="btn" aria-label="Left Align">
+                        <a href="{{url_for('models.discover')}}" style="text-decoration: none;color: #000;">
+                        <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                        <strong>Explore</strong>
+                        </a>
+                    </button>  
+                </div>
+            </div>
+                
+            <div class="row">
+                <div class="col-md-2 col-sm-2">
+                    <nav class="navbar">
+                        <div class="container-fluid">
+                            <ul class="nav nav-pills nav-stacked">
+                                <li><a href="{{url_for('models.index')}}">首页</a></li>
+                                <li><a href="{{url_for('models.discover')}}">发现</a></li>
+                                <li><a href="{{url_for('models.billboard')}}">排行榜</a></li>
+                                <li><a href="{{url_for('models.edm')}}">EDM</a></li>
+                                <li><a href="{{url_for('models.trailer')}}">预告片</a></li>
+                                <li><a href="{{url_for('models.external_link')}}">外站链接</a></li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+
+
+                <div class="col-md-3"></div>
+
+                    <div class="container-fluid" id="video-player">
+                        <div class="row" style="margin-left:20px;margin-top: 10px;">
+                            <div class="col-md-5">
+                                <div style="margin-bottom:10px;">
+                                    <h4>{{video.video_name}}</h4>
+                                </div>
+                                <div>
+                                    <video
+                                        id="my-player"
+                                        class="video-js"
+                                        controls
+                                        preload="auto"
+                                        poster="../../static/image/{{video.video_name}}.jpg"
+                                        data-setup='{}'
+                                        aspectRatio="16:9"
+                                        height="360px"
+                                        width="640px"
+                                        >
+                                
+                                        <source src="../../static/video/{{video.video_type}}/{{video.video_dir}}/{{video.video_name}}.mp4" type="video/mp4"></source>
+                                        <source src="../../static/video/{{video.video_type}}/{{video.video_dir}}/{{video.video_name}}.flv" type="video/flv"></source>
+                                    </video>
+                                </div>
+
+                    
+                            </div>
+
+                            <div class="col-md-3 col-md-offset-3" style="margin-top:30px">
+                                {% for item in recommend %}
+                                    <div>
+                                        <a title={{item.video_name}} href="/video_play/{{item.video_dir}}">
+                                            <img src="../../static/image/{{item.video_name}}.jpg"  alt="item.video_name" height="110" width="200">
+                                        </a>
+                                        <a href="/video_play/{{item.video_dir}}" style="text-decoration:none">
+                                            <p>{{item.video_name}}</p>
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>    
+                </div>
+            </div> 
+
+            <div class="row">
+                <hr />
+            </div>
+            <div class="row" style="margin-left:240px;margin-top:0px">
+                <h3><b>评论区:</b></h3>
+            </div>
+            <div class="row">
+                <div class="container-fluid" id="comment-area">
+                    <div class="row" style="margin-top:8px;">
+                        <form method="POST">
+                            <div class="col-md-9">
+                                <textarea class="form-control" rows="3" name="body" placeholder="请登录之后发表评论..."></textarea>
+                            </div>
+                            <div class="col-md-1" style="margin-top:37px;">
+                                <p>
+                                    <button type="submit" class="btn btn-primary">提交</button>
+                                </p>
+                            </div>
+                        </form>    
+                    </div>
+                    {% for message in get_flashed_messages() %}
+                        <div class="alert alert-success alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <strong style="color: #ee4266">{{ message }}</strong>
+                        </div>
+                    {% endfor %}
+                {% if comments %}
+                    {% for comment in comments %}
+                    <div>
+                        <hr />
+                    </div>
+                    <div class="row"> 
+                        <div class="col-md-2" style="margin-top:10px;">
+                            <img src="../../static/icon/{{comment['icon']}}" alt="用户头像" width="45px" height="45px" style="border-radius:50%;margin-left: 10px">
+                            <div id="username-overflow" style="margin-top:8px;margin-left:2px;color:#313848;font-size: 3px">
+                                <strong>{{comment['username']}}</strong> 
+                            </div>
+                        </div>
+                        
+                        <div class="col-sm-7" style="margin-top:15px;font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">
+                            <p>{{comment['body']}}</p>
+                        </div> 
+                        <div class="col-md-3" style="margin-top:100px;color:grey;">
+                            <h6>&nbsp;&nbsp;&nbsp;{{comment['datetime(created,"localtime")']}}</h6>
+                        </div>    
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="row">
+                        <hr />
+                    </div>
+                {% endif %}
+                </div>
+
+            </div>
+
+        </div> 
+</body>
+</html>

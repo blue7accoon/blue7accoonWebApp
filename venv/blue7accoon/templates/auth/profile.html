@@ -1,0 +1,150 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>blue7accoon-edm</title>
+
+    <link rel="stylesheet" href="{{url_for('static',filename='bootstrap/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='bootstrap/css/bootstrap-theme.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='main.css')}}">
+    
+    <link rel="icon" type="image/png" href="{{url_for('static',filename='image/B.png')}}" sizes="32x32">
+
+    <script src="{{url_for('static',filename='jquery-3.3.1.min.js')}}"></script>
+    <script src="{{url_for('static',filename='bootstrap/js/bootstrap.min.js')}}"></script>
+    
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row bg-head">
+            <div class="col-md-3 text-center title col-sm-6">
+                <h1>blue7accoon-edm</h1>
+            </div>
+            <div class="col-md-4 col-sm-3" id="vp-search-margin">
+                <form  method="GET" action="{{url_for('models.search')}}">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="keyword" placeholder="查找更多精彩视频...">
+                        <span class="input-group-btn">
+                            <button class="btn" type="submit" style="width:70px;">Go!</button>
+                        </span>
+                    </div><!-- /input-group -->
+                </form>
+            </div><!-- /.col-lg-6 -->
+            <div class="col-md-1 col-sm-1" style="margin-top:35px;margin-left: 78px;">
+                {% if g.user %}
+                    <div class="btn-group">
+                        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span><img src="../../static/icon/{{ g.user['icon']}}" class="img-rounded" width="18px" height="18px"></span>
+                            <strong>{{g.user["username"][0:2]}}...</strong>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{url_for('auth.userSpace')}}">个人空间</a></li>
+                            <li><a href="{{url_for('auth.profile')}}">修改资料</a></li>
+                            <li><a href="{{url_for('auth.logout')}}">退出</a></li>
+                        </ul>
+                    </div>
+                {% else %}
+                    <div class="btn-group">
+                        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                            <strong>用户</strong>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{url_for('auth.login')}}">登录</a></li>
+                            <li><a href="{{url_for(auth.register)}}">现在注册</a></li>
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="col-md-1 col-sm-1 col-md-pull-1" style="margin-top: 35px;margin-left: 100px">
+                <button type="button" class="btn" aria-label="Left Align">
+                    <a href="{{url_for('models.discover')}}" style="text-decoration: none;color: #000;">
+                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                    <strong>Explore</strong>
+                    </a>    
+                </button>  
+            </div>
+        </div>
+            
+        <div class="row">
+            <div class="col-md-2 col-sm-2">
+                <nav class="navbar">
+                    <div class="container-fluid">
+                        <ul class="nav nav-pills nav-stacked">
+                            <li><a href="{{url_for('models.index')}}">首页</a></li>
+                            <li><a href="{{url_for('models.discover')}}">发现</a></li>
+                            <li><a href="{{url_for('models.billboard')}}">排行榜</a></li>
+                            <li><a href="{{url_for('models.edm')}}">EDM</a></li>
+                            <li><a href="{{url_for('models.trailer')}}">预告片</a></li>
+                            <li><a href="{{url_for('models.external_link')}}">外站链接</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+            
+            <div class="col-md-7"></div>
+                <div class="container-fluid" style="margin-left: 220px;margin-top: 45px;background-color: whitesmoke;width: 805px;height: auto;">
+                    <div class="row" style="margin-left:20px;margin-top: 10px;">
+                        <div class="col-md-2" style="margin-top:10px;">
+                            <img src="../../static/icon/{{g.user.icon}}" alt="更换头像" width="70px" height="70px">
+                        </div>
+                        <div class="col-md-5" style="font-size:20px;font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;margin-top: 22px;margin-left: -40px;"> 
+                            <strong>{{g.user.username}}</strong>
+                            <h6>个人设置</h6>
+                        </div>
+                        <div class="col-md-12" style="margin-left:-16px;">
+                            <hr  style="height:1px;border-top:1px solid #999999"/>
+                        </div>
+                        <div class="col-md-12">
+                            <strong>修改资料</strong>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="container-fluid" style="width:700;height:auto;margin-top: 35px;margin-left: 150px;">
+                                <div class="row" style="margin-bottom:15px;">
+                                    <div class="col-md-6">
+                                        <form>
+                                            <div class="form-group">
+                                              <label for="exampleInputEmail1">用户名：</label>
+                                              <input type="text" class="form-control" id="exampleInputEmail1" name="username" placeholder="修改用户名">
+                                            </div>
+                                            <div class="form-group">
+                                              <label for="exampleInputPassword1">密码：</label>
+                                              <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="修改密码">
+                                            </div>
+                                            <div class="form-group" enctype="multipart/form-data">
+                                              <label for="exampleInputFile">上传头像</label>
+                                              <input type="file" id="exampleInputFile" name="file">
+                                              <p class="help-block">请上传图片文件...</p>
+                                            </div>
+                                            
+                                            <button type="submit" class="btn btn-default">提交修改</button>
+                                        </form>
+                                    
+                                    </div>
+                        
+                        
+                                    
+                                </div>
+                            </div>
+                        </div>
+                       
+
+                    </div>
+                </div>
+            </div>
+                
+            {% for message in get_flashed_messages() %}
+                <div class="alert alert-success alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <strong style="color: #ee4266">{{ message }}</strong>
+                </div>
+            {% endfor %}         
+        
+        </div>
+    </div>
+</body>
+</html>

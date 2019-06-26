@@ -1,0 +1,238 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>blue7accoon-billboard</title>
+
+    <link rel="stylesheet" href="{{url_for('static',filename='bootstrap/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='bootstrap/css/bootstrap-theme.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='main.css')}}">
+    
+    <link rel="icon" type="image/png" href="{{url_for('static',filename='image/B.png')}}" sizes="32x32">
+
+    <script src="{{url_for('static',filename='jquery-3.3.1.min.js')}}"></script>
+    <script src="{{url_for('static',filename='bootstrap/js/bootstrap.min.js')}}"></script>
+
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row bg-head">
+            <div class="col-md-3 text-center" style="margin-top:16px;color: #ffffff;font-family: fantasy">
+                <h2>blue7accoon-billboard</h2>
+            </div>
+            <div class="col-md-4 col-sm-3" id="vp-search-margin">
+                <form  method="GET" action="{{url_for('models.search')}}">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="keyword" placeholder="查找更多精彩视频...">
+                        <span class="input-group-btn">
+                            <button class="btn" type="submit" style="width:70px;">Go!</button>
+                        </span>
+                    </div><!-- /input-group -->
+                </form>
+            </div><!-- /.col-lg-6 -->
+            <div class="col-md-1 col-sm-1" style="margin-top:35px;margin-left: 78px;">
+                {% if g.user %}
+                    <div class="btn-group">
+                        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span><img src="../../static/icon/{{ g.user['icon']}}" class="img-rounded" width="18px" height="18px"></span>
+                            <strong>{{g.user["username"][0:2]}}...</strong>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{url_for('auth.userSpace')}}">个人空间</a></li>
+                            <li><a href="{{url_for('auth.profile')}}">修改资料</a></li>
+                            <li><a href="{{url_for('auth.logout')}}">退出</a></li>
+                        </ul>
+                    </div>
+                {% else %}
+                    <div class="btn-group">
+                        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                            <strong>用户</strong>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{url_for('auth.login')}}">登录</a></li>
+                            <li><a href="{{url_for('auth.register')}}">现在注册</a></li>
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="col-md-1 col-sm-1 col-md-pull-1" style="margin-top: 35px;margin-left: 100px">
+                <button type="button" class="btn" aria-label="Left Align">
+                    <a href="{{url_for('models.discover')}}" style="text-decoration: none;color: #000;">
+                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                    <strong>Explore</strong>
+                    </a>
+                </button>  
+            </div>
+        </div>
+            
+        <div class="row">
+            <div class="col-md-2 col-sm-2">
+                <nav class="navbar">
+                    <div class="container-fluid">
+                        <ul class="nav nav-pills nav-stacked">
+                            <li><a href="{{url_for('models.index')}}">首页</a></li>
+                            <li><a href="{{url_for('models.discover')}}">发现</a></li>
+                            <li><a href="{{url_for('models.billboard')}}">排行榜</a></li>
+                            <li><a href="{{url_for('models.edm')}}">EDM</a></li>
+                            <li><a href="{{url_for('models.trailer')}}">预告片</a></li>
+                            <li><a href="{{url_for('models.external_link')}}">外站链接</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+
+
+            
+            <div class="col-md-7 col-sm-9" id="bg-body">
+                <div class="container-fluid">
+
+                    <div class="row text-left" style="font-size:20px;margin-top:15px;font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                        <strong>本站排名</strong>
+                    </div>
+                    <div>
+                        <hr />
+                    </div>
+                    <div class="row"> 
+                        <div class="col-md-2" style="margin-top:20px;margin-left:6px;">
+                            <p style="font-size:60px;font-family:fantasy;color:#f67280;">1</p>
+                        </div>
+                        
+                        <div class="col-sm-4 col-sm-pull-1" style="margin-top:-3px;margin-bottom: 20px;">
+                            <a title="{{data[1].video_name}}" href="/video_play/{{data[1].video_dir}}">
+                                <img src="../../static/image/{{data[1].video_name}}.jpg" class="img-responsive" alt="{{data[1].video_name}}" height="110" width="200">
+                            </a>
+                        </div> 
+                        <div class="col-md-5 " style="margin-top:-4px;margin-left: -45px;">
+                            <strong><b>
+                                <a href="/video_play/{{data[1].video_dir}}"><p style="font-size:15px;">{{data[1].video_name}}</p></a>
+                            </b></strong>
+                            <strong><b>
+                                <p>视频类型：{{data[1].video_type}}</p>
+                            </b></strong>
+                            <strong><b>
+                                <p>播放次数：{{data[1].video_view_times}}</p>
+                            </b></strong>
+                        </div>      
+                    </div>
+                    <div>
+                        <hr />
+                    </div>
+                    <div class="row"> 
+                        <div class="col-md-2" style="margin-top:20px;margin-left:6px;">
+                            <p style="font-size:60px;font-family:fantasy;color:#448ef6;">2</p>
+                        </div>
+                        
+                        <div class="col-sm-4 col-sm-pull-1" style="margin-top:-3px;margin-bottom: 20px;">
+                            <a title="{{data[2].video_name}}" href="/video_play/{{data[2].video_dir}}">
+                                <img src="../../static/image/{{data[2].video_name}}.jpg" class="img-responsive" alt="{{data[2].video_name}}" height="110" width="200">
+                            </a>
+                        </div> 
+                        <div class="col-md-5 " style="margin-top:-4px;margin-left: -45px;">
+                            <strong><b>
+                                <a href="/video_play/{{data[2].video_dir}}"><p style="font-size:15px;">{{data[2].video_name}}</p></a>
+                            </b></strong>
+                            <strong><b>
+                                <p>视频类型：{{data[2].video_type}}</p>
+                            </b></strong>
+                            <strong><b>
+                                <p>播放次数：{{data[2].video_view_times}}</p>
+                            </b></strong>
+                        </div>      
+                    </div>
+                    
+                    <div>
+                        <hr />
+                    </div>
+                    <div class="row"> 
+                        <div class="col-md-2" style="margin-top:20px;margin-left:6px;">
+                            <p style="font-size:60px;font-family:fantasy;color:#fd5f00;">3</p>
+                        </div>
+                        
+                        <div class="col-sm-4 col-sm-pull-1" style="margin-top:-3px;margin-bottom: 20px;">
+                            <a title="{{data[3].video_name}}" href="/video_play/{{data[3].video_dir}}">
+                                <img src="../../static/image/{{data[3].video_name}}.jpg" class="img-responsive" alt="{{data[3].video_name}}" height="110" width="200">
+                            </a>
+                        </div> 
+                        <div class="col-md-5 " style="margin-top:-4px;margin-left: -45px;">
+                            <strong><b>
+                                <a href="/video_play/{{data[3].video_dir}}"><p style="font-size:15px;">{{data[3].video_name}}</p></a>
+                            </b></strong>
+                            <strong><b>
+                                <p>视频类型：{{data[3].video_type}}</p>
+                            </b></strong>
+                            <strong><b>
+                                <p>播放次数：{{data[3].video_view_times}}</p>
+                            </b></strong>
+                        </div>      
+                    </div>
+                
+                    <div>
+                        <hr />
+                    </div>
+
+                    {%- for i in range(4,10) %}
+                    <div class="row"> 
+                        <div class="row"> 
+                            <div class="col-md-2" style="margin-top:20px;margin-left:20px;">
+                                <p style="font-size:60px;font-family:fantasy;color:#010101;">{{i}}</p>
+                            </div>
+                            
+                            <div class="col-sm-4 col-sm-pull-1" style="margin-top:-3px;margin-bottom: 20px;">
+                                <a title="{{data[i].video_name}}" href="/video_play/{{data[i].video_dir}}">
+                                    <img src="../../static/image/{{data[i].video_name}}.jpg" class="img-responsive" alt="{{data[i].video_name}}" height="110" width="200">
+                                </a>
+                            </div> 
+                            <div class="col-md-5 " style="margin-top:-4px;margin-left: -60px;">
+                                <strong><b>
+                                    <a href="/video_play/{{data[i].video_dir}}"><p style="font-size:15px;">{{data[i].video_name}}</p></a>
+                                </b></strong>
+                                <strong><b>
+                                    <p>视频类型：{{data[i].video_type}}</p>
+                                </b></strong>
+                                <strong><b>
+                                    <p>播放次数：{{data[i].video_view_times}}</p>
+                                </b></strong>
+                            </div>      
+                        </div>
+                    </div>
+                    <div>
+                        <hr />
+                    </div>
+                    {%- endfor %}
+                    <div class="row"> 
+                        <div class="row"> 
+                            <div class="col-md-2" style="margin-top:20px;margin-left:10px;">
+                                <p style="font-size:60px;font-family:fantasy;color:#010101;">{{10}}</p>
+                            </div>
+                            
+                            <div class="col-sm-4 col-sm-pull-1" style="margin-top:-3px;margin-bottom: 20px;margin-left:10px; ">
+                                <a title="{{data[10].video_name}}" href="/video_play/{{data[10].video_dir}}">
+                                    <img src="../../static/image/{{data[10].video_name}}.jpg" class="img-responsive" alt="{{data[10].video_name}}" height="110" width="200">
+                                </a>
+                            </div> 
+                            <div class="col-md-5 " style="margin-top:-4px;margin-left: -60px;">
+                                <strong><b>
+                                    <a href="/video_play/{{data[10].video_dir}}"><p style="font-size:15px;">{{data[10].video_name}}</p></a>
+                                </b></strong>
+                                <strong><b>
+                                    <p>视频类型：{{data[10].video_type}}</p>
+                                </b></strong>
+                                <strong><b>
+                                    <p>播放次数：{{data[10].video_view_times}}</p>
+                                </b></strong>
+                            </div>      
+                        </div>
+                    </div>
+                    <div>
+                        <hr />
+                    </div>         
+                </div>
+            </div>
+
+</body>
+</html>

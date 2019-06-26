@@ -1,0 +1,33 @@
+-- 初始化数据库
+-- 删除同名数据表，创建新的数据表
+
+DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS comment;
+DROP TABLE IF EXISTS video_info;
+
+CREATE TABLE user (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+username TEXT UNIQUE NOT NULL,
+password TEXT NOT NULL,
+icon TEXT NOT NULL DEFAULT 'icon-default.jpg',
+email TEXT UNIQUE NOT NULL,
+email_validation INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE comment (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+author_id INTEGER NOT NULL,
+created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+body TEXT NOT NULL,
+video_id INTEGER NOT NULL,
+FOREIGN KEY (author_id) REFERENCES user (id)
+);
+
+CREATE TABLE video_info (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+video_name TEXT NOT NULL,
+video_dir TEXT NOT NULL,
+video_type TEXT NOT NULL DEFAULT 'other',
+video_view_times INT NOT NULL DEFAULT 0,
+FOREIGN KEY (id) REFERENCES comment (video_id)
+);
