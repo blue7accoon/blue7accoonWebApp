@@ -2,6 +2,7 @@
 - 一个视频网站应用,前端主要依赖bootstrap框架实现,后端通过改写Flask官方tutorial完成
 - 主要功能：视频播放、注册、登录、邮箱验证、视频评论、视频检索
 - 运行所需环境都已配置好
+![index overview](https://github.com/blue7accoon/blue7accoonWebApp/blob/24c606742bc421a3136d8ef138eb5c398d6d9fae/blue7accoon_index.png)
 ### 使用方法
 - 将MP4格式的视频拷贝到venv/blue7accoon/static/video文件夹中，根据分类按照video中的格式创建新的子文件夹，再将视频置于其中
 - 对视频进行截图，截图需要重命名为与视频文件名一致，之后放置于venv/blue7accoon/static/images文件夹下
