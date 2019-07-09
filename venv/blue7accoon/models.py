@@ -94,7 +94,7 @@ def video_update(video_dirs=()):
             if db.execute(
                 "SELECT * FROM video_info WHERE video_dir = ?",(video[1],)
             ).fetchone() is None:
-                video_type = re.search(r".*video\\(.*?)\\",video_dir).group(1)
+                video_type = re.search(r".*video\\(.*)",video_dir).group(1)
 
                 db.execute(
                     "INSERT INTO video_info (video_name,video_dir,video_type)"
