@@ -10,7 +10,7 @@
 - 对视频进行截图，截图需要重命名为与视频文件名一致，之后放置于venv/blue7accoon/static/images文件夹下
 - 如需启用注册、登录、评论等功能，请对以下代码进行修改：
 
-  ```Python
+  ```
      msg["From"] = _format_addr("blue7accoon <xxxx@xxx.com>")
      msg["To"] = _format_addr("<%s>" %email)
      msg["Subject"] = Header("欢迎您加入blue7accoon！请验证邮箱地址！", "utf-8").encode()
