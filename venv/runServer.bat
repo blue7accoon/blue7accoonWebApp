@@ -5,7 +5,7 @@ TIMEOUT /T 2
 set FLASK_ENV=development
 set FLASK_APP=blue7accoon
 echo.
-echo ÅäÖÃÒÑÍê³É£¡
+echo é…ç½®å·²å®ŒæˆÂ¡
 echo.
 flask init-db
 flask run
