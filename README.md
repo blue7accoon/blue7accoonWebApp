@@ -22,6 +22,6 @@
      server.login("xxxx@xxx.com", email_password)
      server.sendmail("xxxx@xxx.com", [email], msg.as_string())
   ```
-#### attention
+## attention
 - **runServer.bat**设置了当前应用以调试模式启动，如果需要以生产模式启动可以将其中的`set FLASK_ENV=development`去掉
 - **runServer.bat**中加入了初始化数据库的命令行语句，每次执行都会清空其中的数据表
