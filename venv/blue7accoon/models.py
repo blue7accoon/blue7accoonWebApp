@@ -11,6 +11,7 @@ import random,re
 bp = Blueprint("models",__name__)
 
 
+# 视频播放页
 @bp.route("/video_play/<string:video_dir>",methods=("GET","POST"))
 def video_play(video_dir):
     db = get_db()
@@ -71,10 +72,10 @@ def video_play(video_dir):
         " WHERE video_dir = ?",(video_dir,)
     )
     db.commit()
-    print(comments)
     return render_template("models/video_play.html",video=video,comments=comments,recommend=recommend)
 
 
+# 获取视频文件名称
 def get_video_name(video_dir):
     video_list = []
     for root,dirs,files in os.walk(video_dir):
@@ -83,6 +84,8 @@ def get_video_name(video_dir):
             video_list.append(filename)
     return video_list
 
+
+# 视频信息更新到数据库
 def video_update(video_dirs=()):
     db = get_db()
     for video_dir in video_dirs:
@@ -101,8 +104,9 @@ def video_update(video_dirs=()):
                     " VALUES (?,?,?)",(video[0],video[1],video_type)
                 )
                 db.commit()
+                
 
-
+# 网站主页
 @bp.route("/",methods=("GET",))
 @bp.route("/index",methods=("GET",))
 def index():
@@ -114,6 +118,7 @@ def index():
     return render_template("models/index.html",video=video)
 
 
+# edm分类页
 @bp.route("/index/edm")
 def edm():
     db = get_db()
@@ -123,6 +128,7 @@ def edm():
     return render_template("models/edm.html",video=video)
 
 
+# 预告片分类页
 @bp.route("/index/trailer")
 def trailer():
     db = get_db()
@@ -132,6 +138,7 @@ def trailer():
     return render_template("models/trailer.html",video=video)
 
 
+# 发现页
 @bp.route("/index/discover")
 def discover():
     db = get_db()
@@ -150,11 +157,14 @@ def discover():
 
     return render_template("models/discover.html",discover=discover)
 
+
+# 网站推荐页
 @bp.route("/index/external_link")
 def external_link():
     return render_template("models/external-link.html")
 
 
+# 播放排行页
 @bp.route("/index/billboard")
 def billboard():
     db = get_db()
@@ -163,6 +173,8 @@ def billboard():
     ).fetchall()
     return render_template("models/billboard.html",data=data)
 
+
+# 搜索页
 @bp.route("/search")
 def search():
     db = get_db()
